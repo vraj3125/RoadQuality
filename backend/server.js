@@ -67,9 +67,13 @@ io.on('connection', (socket) => {
 
 const PORT = process.env.PORT || 5000;
 
-server.listen(PORT, '0.0.0.0', () => {
-  console.log(`🚀 Server running on port ${PORT}`);
-  console.log(`📡 Socket.IO ready for connections`);
-});
+// Only listen when running locally
+if (process.env.NODE_ENV !== 'production') {
+  server.listen(PORT, '0.0.0.0', () => {
+    console.log(`🚀 Server running on port ${PORT}`);
+    console.log(`📡 Socket.IO ready for connections`);
+  });
+}
 
-module.exports = { app, io };
+// Export the app for Vercel
+module.exports = app;
